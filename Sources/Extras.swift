@@ -17,6 +17,7 @@ fileprivate var refreshSession: RefreshSession?
 @available(tvOS 12.0, *)
 @available(macOS 10.14, *)
 @available(iOS 12.0, *)
+@available(visionOS 1.0, *)
 public class SKSubscriptionGroup
 {
 	let identifier: GroupIdentifier
@@ -60,6 +61,7 @@ public typealias GroupIdentifier = String
 @available(tvOS 12.0, *)
 @available(iOS 12.0, *)
 @available(macOS 10.14, *)
+@available(visionOS 1.0, *)
 public extension SKProductsResponse
 {
 	/// Build a `SKSubscriptionGroup` object
@@ -178,6 +180,7 @@ public extension InAppReceipt
 	///
 	/// - Returns `false` if user isn't eligible for introductory offer, otherwise `true`
 	@available(iOS 12.0, *)
+    @available(visionOS 1.0, *)
 	func isEligibleForIntroductoryOffer(for group: SKSubscriptionGroup) -> Bool
 	{
 		let array = purchases.filter { $0.subscriptionTrialPeriod || $0.subscriptionIntroductoryPricePeriod }

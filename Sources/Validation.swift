@@ -6,7 +6,7 @@
 //  Copyright © 2017-2021 Pavel Tikhonenko. All rights reserved.
 //
 
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
 import UIKit
 #elseif os(watchOS)
 import UIKit
@@ -112,7 +112,7 @@ public extension InAppReceipt
         try checkAppleRootCertExistence()
         
         // only check certificate chain of trust and signature validity after these version
-        if #available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 5.0, *)
+        if #available(OSX 10.12, iOS 10.0, tvOS 10.0, visionOS 1.0, watchOS 5.0, *)
 		{
 			#if DEBUG
 			try checkSignatureValidity()
@@ -135,7 +135,7 @@ public extension InAppReceipt
         }
     }
     
-    @available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 5.0, *)
+    @available(OSX 10.12, iOS 10.0, tvOS 10.0, visionOS 1.0, watchOS 5.0, *)
     func checkChainOfTrust() throws
     {
         // Validate chain of trust of certificate
@@ -227,7 +227,7 @@ public extension InAppReceipt
         }
     }
     
-    @available(OSX 10.12, iOS 10.0, tvOS 10.0, watchOS 3.0, *)
+    @available(OSX 10.12, iOS 10.0, tvOS 10.0, visionOS 1.0, watchOS 3.0, *)
     func checkSignatureValidity() throws
     {
         guard let signature = signature else
@@ -287,7 +287,7 @@ fileprivate func guid() -> Data
 #if os(watchOS)
     var uuidBytes = WKInterfaceDevice.current().identifierForVendor!.uuid
     return Data(bytes: &uuidBytes, count: MemoryLayout.size(ofValue: uuidBytes))
-#elseif !targetEnvironment(macCatalyst) && (os(iOS) || os(tvOS))
+#elseif !targetEnvironment(macCatalyst) && (os(iOS) || os(tvOS)) || os(visionOS)
     var uuidBytes = UIDevice.current.identifierForVendor!.uuid
     return Data(bytes: &uuidBytes, count: MemoryLayout.size(ofValue: uuidBytes))
 #elseif targetEnvironment(macCatalyst) || os(macOS)
